@@ -23,7 +23,7 @@ def decrypt_line(line):
 
 
 if __name__ == "__main__":
-    pool = Pool(4)
+    pool = Pool(threads)
     # читаем из исходного файла
     with open('file.txt') as source_file:
         # chunk the work into batches of 4 lines at a time
