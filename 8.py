@@ -1,15 +1,20 @@
 from multiprocessing import Pool
+from multiprocessing import Pool
 
 key = 1
 threads = 4
 
 def encrypt_line(line):
     res = ""
+    if line[-1:]=="\n":
+        line = line[:-1]
     for char in line:
         char = chr(ord(char) + key)
         res+=char
-    return res
+    return res+"\n"
 def decrypt_line(line):
+    if line[-1:]=="\n":
+        line = line[:-1]
     res = ""
     for char in line:
         char = chr(ord(char) - key)
@@ -26,8 +31,7 @@ if __name__ == "__main__":
         # пишем зашифрованное в новый файл
         with (open('ecrypted_file.txt', "w")) as source_file_2:
             source_file_2.writelines(results)
-
-    print(1)
+    # читаем из зашифрованного
     with open('ecrypted_file.txt') as source_file_2:
         results = pool.map(decrypt_line, source_file_2, threads)
         print(results)
